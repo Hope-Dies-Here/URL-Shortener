@@ -6,7 +6,7 @@ const form = document.getElementById("shortener-form");
 // Load saved links from local storage
 let savedLinks = JSON.parse(localStorage.getItem("shortenedLinks")) || [];
 async function getLinks() {
-  let response = await fetch("http://localhost:5000/links");
+  let response = await fetch("https://url-it.vercel.app/links");
   if (response.ok) {
     const data = await response.json();
     savedLinks = data.data;
@@ -51,7 +51,7 @@ form.addEventListener("submit", e => {
     const shortUrl = `${baseUrl}${shortCode}`;
 
     const body = { long: longUrl, short: shortUrl, code: shortCode };
-    fetch("http://localhost:5000/short", {
+    fetch("https://url-it.vercel.app/short", {
       method: "POST",
       headers: {
         "Content-Type": "application/JSON"
