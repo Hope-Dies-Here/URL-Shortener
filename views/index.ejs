@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek Link Shortener</title>
+    <link rel="stylesheet" href="./style.css" type="text/css" media="all" />
+</head>
+<body>
+    <div class="container">
+        <h1>Shorten My Url</h1>
+        <form action="/short" method="post" id="shortener-form">
+            <input type="url" id="url-input" placeholder="Enter a long URL" required>
+            <input type="submit" value="Shorten" id="shorten-btn"/>
+        </form>
+        <div id="shortened-links">
+            <h2>Shortened Links</h2>
+            <div id="links-list"></div>
+        </div>
+    </div>
+
+<script src="./style.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
