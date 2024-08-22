@@ -63,7 +63,6 @@ form.addEventListener("submit", e => {
         if (data.isComplete) {
           urlInput.value = "";
           add(body);
-          alert(savedLinks.length);
           displayLinks();
         } else {
           alert("cunt shorten ypur link");
