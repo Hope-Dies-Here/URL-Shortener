@@ -2,24 +2,27 @@ const urlInput = document.getElementById("url-input");
 const shortenBtn = document.getElementById("shorten-btn");
 const linksList = document.getElementById("links-list");
 const form = document.getElementById("shortener-form");
-localStorage.clear()
+//localStorage.clear()
 // Load saved links from local storage
-// let savedLinks = JSON.parse(localStorage.getItem("shortenedLinks")) || [];
-let savedLinks = []
+let savedLinks = JSON.parse(localStorage.getItem("shortenedLinks")) || [];
 async function getLinks() {
-  let response = await fetch('http://localhost:5000/links')
-  if(response.ok){
-    const data = await response.json()
-    savedLinks = data.data
-    
+  let response = await fetch("http://localhost:5000/links");
+  if (response.ok) {
+    const data = await response.json();
+    savedLinks = data.data;
   }
 }
-
+function add(value) {
+  if (savedLinks.length >= 3) {
+    savedLinks.shift();
+  }
+  savedLinks.push(value);
+}
 // Display saved links
 async function displayLinks() {
- // await getLinks()
+  // await getLinks()
   linksList.innerHTML = "";
-  savedLinks.forEach((link, index) => {
+  savedLinks.reverse().forEach((link, index) => {
     const linkItem = document.createElement("div");
     linkItem.className = "link-item fade-in";
     linkItem.innerHTML = `
@@ -39,36 +42,36 @@ function generateShortCode() {
 }
 
 // Shorten URL and save
-form.addEventListener("submit", (e) => {
-  e.preventDefault()
+form.addEventListener("submit", e => {
+  e.preventDefault();
   const longUrl = urlInput.value.trim();
   if (longUrl) {
     const shortCode = generateShortCode();
-    const baseUrl = window.location.href 
+    const baseUrl = window.location.href;
     const shortUrl = `${baseUrl}${shortCode}`;
-    
-    const body = { long: longUrl, short: shortUrl, code: shortCode }
+
+    const body = { long: longUrl, short: shortUrl, code: shortCode };
     fetch("http://localhost:5000/short", {
-      method:"POST",
+      method: "POST",
       headers: {
         "Content-Type": "application/JSON"
       },
       body: JSON.stringify(body)
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.isComplete){
+      .then(res => res.json())
+      .then(data => {
+        if (data.isComplete) {
           urlInput.value = "";
-          savedLinks.push(body)
-          displayLinks()
+          add(body);
+          alert(savedLinks.length);
+          displayLinks();
         } else {
-          alert("cunt shorten ypur link")
+          alert("cunt shorten ypur link");
         }
       })
-      .catch((err) => alert(err.message))
-      
-   // localStorage.setItem("shortenedLinks", JSON.stringify(savedLinks));
-    
+      .catch(err => alert(err.message));
+
+    localStorage.setItem("shortenedLinks", JSON.stringify(savedLinks));
   }
 });
 

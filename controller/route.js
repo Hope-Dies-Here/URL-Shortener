@@ -3,13 +3,6 @@ import { urlService } from '../service/UrlService.js'
 
 const router = express.Router()
 
-const db = [
-    {
-      long: 'https://google.com',
-      short: 'http://localhost:5000/ggl'
-    }
-  ]
-
 router.get('/favicon.ico', function(req, res) { 
     res.status(204);
     res.end();    
@@ -19,6 +12,12 @@ router.get('/', async (req, res) => {
   const urls = await urlService.getAllUrls() 
   res.render('index', { urls })
 })
+import { Url } from '../model/url.js'
+router.get('/delete', async(req, res) => {
+  await Url.deleteMany({__v: 0})
+  res.send("deleted")
+})
+// 
 router.get('/links', async (req, res) => {
   try {
     const urls = await urlService.getAllUrls() 
@@ -33,13 +32,11 @@ router.get('/links', async (req, res) => {
 router.get('*/:code', async (req, res) => {
 
   const code = req.params.code
-  // const urlData = db.find(url => url.code == code)
   const urlData = await urlService.getUrl(req.params.code)
   if(urlData){
-    console.log(urlData.long)
     res.redirect(urlData.long)
   } else {
-    res.send('<h1>404</h1>')
+    res.redirect('/')
   }
 })
 
