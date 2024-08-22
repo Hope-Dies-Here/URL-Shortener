@@ -1,0 +1,6 @@
+DdB_STRING=mongodb://mongo:zyjsGegh5OqnXc2yyvVY@containers-us-west-183.railway.app:6403
+PORT=9696
+LOCAL_DB_STRING=mongodb://localhost:27017/Demo
+DB_STRING=mongodb://localhost:27017/Demo
+lDB_STRING=mongodb+srv://sarah:sarah@cluster0.xr5qdwo.mongodb.net/?retryWrites=true&w=majority
+SESSION_KEY=gettoBird
