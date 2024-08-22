@@ -12,12 +12,14 @@ router.get('/', async (req, res) => {
   const urls = await urlService.getAllUrls() 
   res.render('index', { urls })
 })
-import { Url } from '../model/url.js'
-router.get('/delete', async(req, res) => {
-  await Url.deleteMany({__v: 0})
-  res.send("deleted")
-})
+
+// import { Url } from '../model/url.js'
+// router.get('/delete', async(req, res) => {
+//   await Url.deleteMany({__v: 0})
+//   res.send("deleted")
+// })
 // 
+
 router.get('/links', async (req, res) => {
   try {
     const urls = await urlService.getAllUrls() 

@@ -63,6 +63,7 @@ form.addEventListener("submit", e => {
         if (data.isComplete) {
           urlInput.value = "";
           add(body);
+          localStorage.setItem("shortenedLinks", JSON.stringify(savedLinks));
           displayLinks();
         } else {
           alert("cunt shorten ypur link");
@@ -70,7 +71,7 @@ form.addEventListener("submit", e => {
       })
       .catch(err => alert(err.message));
 
-    localStorage.setItem("shortenedLinks", JSON.stringify(savedLinks));
+    
   }
 });
 
