@@ -33,3 +33,4 @@ connectDatabase(DB_STRING)
   });
 
 app.use("/", route);
+export default app
